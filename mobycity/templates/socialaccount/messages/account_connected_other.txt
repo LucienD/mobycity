@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}Ce compte est déjà lié à un autre utilisateur.{% endblocktrans %}

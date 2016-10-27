@@ -1,0 +1,19 @@
+{% load cms_tags sekizai_tags %}
+{% load static %}
+
+{% if category_list %}
+    <form id="categories-selecteur" class="form-cartographie" name="cartography_categories">
+        <ul id="categories-liste" class="list-inline">
+            <li class="col-xs-12"><input type="checkbox" name="cartography_category_all" id="id_cartography_category_all" value="0" checked><label for="id_cartography_category_all">Tout sélectionner</label></li>
+            {% for category in category_list %}
+            <li class="col-md-2"><input type="checkbox" class="cartographie cartography-category" name="cartography_category" id="id_cartography_category_{{ category.id }}" value="{{ category.id }}" checked><label for="id_cartography_category_{{ category.id }}">{{ category.name }}</label></li>
+            {% endfor %}
+        </ul>
+    </form>
+{% else %}
+    <p>Aucune catégorie n'est disponible.</p>
+{% endif %}
+
+{% addtoblock "js" %}
+    <script type="text/javascript" src="{% static 'cartography/js/category_selector.js' %}"></script>
+{% endaddtoblock %}

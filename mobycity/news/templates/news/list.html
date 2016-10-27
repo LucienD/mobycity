@@ -1,0 +1,45 @@
+{% load static %}
+
+{% if news_list %}
+    {% for news in news_list %}
+        {% if news.image %}
+            <img src="{% get_media_prefix %}{{ news.image }}" style="width: 300px;" />
+        {% endif %}
+        <h1>{{ news.title }}</h1>
+        {% if news.subtitle %}
+            <h2>{{ news.subtitle }}</h2>
+        {% endif %}
+        <div>Published on {{ news.publication_datetime }}</div>
+        <div>{{ news.theme }}</div>
+        <div>{{ news.body|safe }}</div>
+        {% if news.link1 and news.link2 and news.link3 %}
+            <ul>
+                {% if news.link1 %}
+                    <li>{{ news.link1 }}</li>
+                {% endif %}
+                {% if news.link2 %}
+                    <li>{{ news.link2 }}</li>
+                {% endif %}
+                {% if news.link3 %}
+                    <li>{{ news.link3 }}</li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if news_list.has_previous %}
+            <a href="?page={{ news_list.previous_page_number }}">&lt;&lt; previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ news_list.number }} of {{ news_list.paginator.num_pages }}
+        </span>
+
+        {% if news_list.has_next %}
+            <a href="?page={{ news_list.next_page_number }}">next &gt;&gt;</a>
+        {% endif %}
+    </span>
+</div>

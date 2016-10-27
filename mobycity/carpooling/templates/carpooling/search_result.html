@@ -1,0 +1,78 @@
+<style type="text/css">
+    .cartography-map {
+        height: 500px;
+        width: 500px;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<div><a id="back-to-search" href="{% url 'carpooling.views.search' %}">Back to search</a></div>
+
+<div>
+    {% if carpool_list %}
+        {% for carpool in carpool_list %}
+            <p>
+                {{ carpool.id }}
+                {{ carpool.creation_datetime }}<br/>
+                {{ carpool.organizer.username }}<br/>
+                {{ carpool.frequency }}<br/>
+                {% if carpool.frequency == 'OCC' %}
+                    {{ carpool.departure_date }}<br/>
+                {% endif %}
+                {{ carpool.departure_time }}<br/>
+                {% if carpool.frequency == 'OCC' %}
+                    {{ carpool.arrival_date }}<br/>
+                {% endif %}
+                {{ carpool.arrival_time }}<br/>
+                {{ carpool.comment }}<br/>
+            <div class="cartography-map"></div>
+
+            {% if carpool.id in subscription_carpool_list.0 %}
+                Already subscribed
+            {% else %}
+                {% if carpool.organizer != request.user %}
+                    <form action="{% url 'carpooling.views.subscribe' %}" method="post">
+                        {% csrf_token %}
+                        <input id="id_carpool_id" name="carpool_id" type="hidden" value="{{ carpool.id }}"/>
+                        <input type="submit" value="Subscribe"/>
+                    </form>
+                {% else %}
+                    This ad is yours
+                {% endif %}
+            {% endif %}
+
+            </p>
+        {% endfor %}
+
+        {% include 'cartography/map.html' %}
+    {% else %}
+        No carpools are matching your criteria. <a href="{% url 'carpooling.views.offer' %}">Place a carpool ad</a>
+    {% endif %}
+</div>
+
+<script>
+    document.getElementById("back-to-search").setAttribute("href", document.getElementById("back-to-search").getAttribute("href") + window.location.search);
+
+    var carpoolList = {{ carpool_list_json | safe }};
+
+    for (var i = 0; i < cartographyMaps.length; i++) {
+        var carpoolMarkerA = new google.maps.Marker({
+            position: {
+                lat: carpoolList[i].fields.departure_latitude,
+                lng: carpoolList[i].fields.departure_longitude
+            },
+            map: cartographyMaps[i],
+            label: "A"
+        });
+
+        var carpoolMarkerB = new google.maps.Marker({
+            position: {
+                lat: carpoolList[i].fields.arrival_latitude,
+                lng: carpoolList[i].fields.arrival_longitude
+            },
+            map: cartographyMaps[i],
+            label: "B"
+        });
+    }
+</script>

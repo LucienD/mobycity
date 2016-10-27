@@ -1,0 +1,16 @@
+{% load static %}
+
+{% if category_list %}
+    <form name="cartography_categories">
+        <ul>
+            <li><input type="checkbox" name="cartography_category_all" id="id_cartography_category_all" value="0" checked><label for="id_cartography_category_all">All</label></li>
+            {% for category in category_list %}
+            <li><input type="checkbox" class="cartography-category" name="cartography_category" id="id_cartography_category_{{ category.id }}" value="{{ category.id }}" checked><label for="id_cartography_category_{{ category.id }}">{{ category.name }}</label></li>
+            {% endfor %}
+        </ul>
+    </form>
+{% else %}
+    <p>No categories are available.</p>
+{% endif %}
+
+<script type="text/javascript" src="{% static 'cartography/js/category_selector.js' %}"></script>

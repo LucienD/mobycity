@@ -1,0 +1,23 @@
+{% load static %}
+
+<form action="{% url 'carpooling.views.search_result' %}" method="get">
+    {{ form.as_p }}
+    <input type="submit" value="Search"/>
+</form>
+
+<script type="text/javascript">
+    var categoryList = {{ category_list_json | safe }};
+    var pointOfInterestList = {{ point_of_interest_list_json | safe }};
+    
+    var mediaBaseUrl = '{% get_media_prefix %}';
+    
+    var markerIconA = '';
+    var markerIconB = '';
+    
+    var markerLabelA = 'A';
+    var markerLabelB = 'B';
+</script>
+
+{% include 'cartography/map.html' %}
+
+<script type="text/javascript" src="{% static 'carpooling/js/search.js' %}"></script>

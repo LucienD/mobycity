@@ -1,0 +1,2858 @@
+@import "compass/css3";
+@import "partials/font-face";
+
+
+$break-sm: 768px;
+$break-md: 992px;
+$break-lg: 1200px;
+
+$covoiturage-color: #4fba29;
+$covoiturage-rollover-color: #61cd3b;
+$cartographie-color: #f75527;
+$cartographie-rollover-color: #ff703d;
+$sel-color: #f3c307;
+$sel-rollover-color: #ffb034;
+$base-color: #464646;
+$base-rollover-color: #999898;
+$base-secondaire-color: #828282;
+$filet-color: #cbcbcb;
+$encart-color: #f5f5f5;
+$footer-color: #262626;
+$footer-border-color: #3C3C3C;
+
+$light-font: 200;
+$regular-font: 400;
+$semibold-font: 600;
+$bold-font: 700;
+$extrabold-font: 800;
+$black-font: 900;
+
+
+/*********** Navbar collapse for tablets ***********/
+@media screen and (max-width: $break-sm) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display: block !important;
+    }
+}
+/*********** Navbar collapse for tablets END ***********/
+
+
+html {
+    height: 100%;
+    
+    &.cms-toolbar-expanded {
+        .navbar-fixed-top {
+            top: 30px;
+        }
+    }
+
+    body {
+        height: 100%;
+        font-family: ProximaNova, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: $base-color;
+        
+        #wrap {
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            margin: 0 auto -160px;
+            
+            header {
+                .navbar {
+                    a {
+                        color: $base-color;
+                        
+                        &:hover {
+                            color: $base-rollover-color;
+                        }
+                    }
+                    
+                    height: 70px;
+                    border-bottom: solid 1px $filet-color;
+                    background: #fff;
+                    
+                    .container {
+                        height: 100%;
+                        
+                        .burger-toggle {
+                            height: 100%;
+                            margin: 0;
+                            border: 0;
+                            @include border-radius(0, 0);
+
+                            @media screen and (min-width: $break-sm) {
+                                padding: 22px 0;
+                            }
+
+                            @media screen and (max-width: $break-sm) {
+                                padding: 22px 15px;
+                            }
+                            
+                            &:hover {
+                                background: none;
+                            }
+
+                            .burger-button {
+                                display: block;
+
+                                .burger-icon {
+                                    position: relative;
+                                    display: block;
+                                    height: 5px;
+                                    width: 35px;
+                                    background: $cartographie-color;
+                                    @include border-radius(5px, 5px);
+
+                                    &:before {
+                                        position: absolute;
+                                        left: 0;
+                                        right: 0;
+                                        margin-top: -10px;
+                                        content: " ";
+                                        height: 5px;
+                                        width: 35px;
+                                        background: $covoiturage-color;
+                                        @include border-radius(5px, 5px);
+                                    }
+
+                                    &:after {
+                                        position: absolute;
+                                        left: 0;
+                                        right: 0;
+                                        margin-top: 10px;
+                                        content: " ";
+                                        height: 5px;
+                                        width: 35px;
+                                        background: $sel-color;
+                                        @include border-radius(5px, 5px);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        .navbar-header {
+                            position: relative;
+                            z-index: 2;
+                            height: 100%;
+                            
+                            .navbar-brand {
+                                height: 100%;
+                                
+                                @media screen and (min-width: $break-sm) {
+                                    padding: 22px 0;
+                                }
+                                
+                                @media screen and (max-width: $break-sm) {
+                                    padding: 22px 15px;
+                                }
+                            }
+                        }
+                        
+                        #navbar {
+                            .connexion-profil {
+                                text-transform: uppercase;
+                            }
+                            
+                            &.collapsing, &.in {
+                                @media screen and (max-width: $break-sm) {
+                                    background-color: #fff;
+                                    border-bottom: solid 10px $filet-color;
+                                    border-top: solid 10px $filet-color;
+                                }
+                                
+                                .navbar-right {
+                                    ul {
+                                        li {
+                                            border: 0;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            .navbar-right {
+                                height: 100%;
+                                
+                                ul {
+                                    li {
+                                        border-right: solid 1px $filet-color;
+                                            
+                                        @media screen and (max-width: $break-sm) {
+                                            padding-left: 15px;
+                                        }
+                                        
+                                        a {
+                                            @media screen and (min-width: $break-sm) {
+                                                padding: 25px;
+                                            }
+                                            
+                                            &.burger-toggle {
+                                                padding: 32.5px 17px;
+                                                z-index: 2;
+                                                
+                                                @media screen and (min-width: $break-sm) {
+                                                    display: block;
+                                                }
+                                                
+                                                @media screen and (max-width: $break-sm) {
+                                                    display: none;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                ul#navbar-espaces {
+                                    @media screen and (min-width: $break-sm) {
+                                        position: absolute;
+                                        z-index: 1;
+                                        left: 0;
+                                        right: 0;
+                                        top: -70px;
+                                        margin: 0;
+                                        text-align: center;
+                                        background: #fff;
+                                        border-bottom: solid 10px $filet-color;
+                                        border-top: solid 10px $filet-color;
+                                        @include transition-property(top);
+                                        @include transition-duration(.2s);
+                                    
+                                        &.in {
+                                            top: 0;
+                                        }
+
+                                        li {
+                                            display: inline-block;
+                                            float: none;
+                                            border: 0;
+                                            
+                                            a {
+                                                padding: 15px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            #page-content {
+                padding-bottom: 200px;
+                padding-top: 70px;
+                min-height: 100%;
+                height: auto !important;
+                height: 100%;
+                
+                .slider {
+                    height: 290px;
+                    margin-bottom: -105px;
+                    padding: 55px 0;
+                    background-color: $filet-color;
+                    background-image: image-url('slider-generique.jpg');
+                    background-position: 50% 50%;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                
+                    h1 {
+                        color: #fff;
+                        font-size: 30px;
+                        font-weight: bold;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
+                }
+                
+                #onglets {
+                    ul {
+                        margin: 0;
+                        text-align: center;
+                        
+                        li {
+                            height: 35px;
+                            padding: 0 5px;
+                            
+                            a {
+                                display: block;
+                                height: 100%;
+                                padding: 10px;
+                                background: $base-color;
+                                color: #fff;
+                                font-size: 12px;
+                                font-weight: bold;
+                                text-transform: uppercase;
+                                    
+                                &:hover {
+                                    background: $base-rollover-color;
+                                    text-decoration: none;
+                                }
+                            }
+                            
+                            &.active {
+                                a {
+                                    background: #fff;
+                                    color: $base-color;
+                                    
+                                    &:hover {
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                #sous-onglets {
+                    margin-top: 25px;
+                    
+                    ul {
+                        margin: 0;
+                        text-align: center;
+                        padding-bottom: 30px;
+                        border-bottom: solid 1px $filet-color;
+                        
+                        li {
+                            height: 35px;
+                            padding: 0 5px;
+                            
+                            a {
+                                display: block;
+                                height: 100%;
+                                padding: 10px;
+                                border: solid 1px $filet-color;
+                                @include border-radius(3px);
+                                background: #fff;
+                                color: $base-color;
+                                font-size: 11px;
+                                font-weight: bold;
+                                    
+                                &:hover {
+                                    text-decoration: none;
+                                    border-color: $base-rollover-color;
+                                    background: $base-rollover-color;
+                                    color: #fff;
+                                }
+                            }
+                            
+                            &.active {
+                                a {
+                                    border-color: $base-color;
+                                    background: $base-color;
+                                    color: #fff;
+                                    
+                                    &:hover {
+                                        text-decoration: none;
+                                        border-color: $base-color;
+                                        background: $base-color;
+                                        color: #fff;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                #corps {
+                    min-height: 105px;
+                    background: #fff;
+                    
+                    & > p {
+                        padding-left: 8.3333333333%;
+                        padding-right: 8.3333333333%;
+                    }
+                    
+                    .colonnes-2 {
+                        padding-left: 8.3333333333%;
+                        padding-right: 8.3333333333%;
+                        
+                        @media screen and (min-width: $break-md) {
+                            @include column-count(2);
+                            @include column-gap(20px);
+                        }
+                    }
+                    
+                    .colonnes-1 {
+                        padding-left: 8.3333333333%;
+                        padding-right: 8.3333333333%;
+                    }
+                }
+                
+                .bloc-titre {
+                    position: relative;
+                    margin-bottom: 75px;
+                    
+                    @media screen and (min-width: $break-md) {
+                        width: 50%;
+                        margin-left: 25%;
+                        margin-right: 25%;
+                    }
+                    
+                    @media screen and (max-width: $break-md) {
+                        margin-left: 10%;
+                        margin-right: 10%;
+                    }
+                    
+                    &:after {
+                        position: absolute;
+                        content: "";
+                        bottom: -25px;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        height: 1px;
+                        width: 50px;
+                        border-bottom: solid 5px $base-color;
+                        @include border-radius(5px, 5px);
+                    }
+
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        bottom: -23px;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        height: 1px;
+                        border-bottom: solid 1px $filet-color;
+                    }
+                    
+                    h2 {
+                        position: relative;
+                        z-index: 1;
+                        margin-top: 40px;
+                        text-align: center;
+                        text-transform: uppercase;
+                        font-size: 24px;
+                        font-weight: bold;
+
+                        @media screen and (min-width: $break-lg) {
+                            &:after, &:before {
+                                position: absolute;
+                                z-index: -1;
+                                content: "";
+                                top: 10px;
+                                width: 15%;
+                                border-bottom: solid 1px $filet-color;
+                            }
+                            &:after {
+                                right: 0;
+                            }
+
+                            &:before {
+                                left: 0;
+                            }
+                        }
+                    }
+
+                    h3, .consigne {
+                        color: $base-secondaire-color;
+                        text-align: center;
+                        font-family: Merriweather;
+                        font-size: 14px;
+                        font-style: italic;
+                    }
+                }
+
+                /*********** ACCUEIL ***********/
+                
+                #accueil-slider {
+                    padding-top: 70px;
+                    background: #fff image-url("accueil/accueil-slider.jpg");
+                    background-position: 50% 50%;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    text-align: center;
+                    font-size: 44px;
+                    line-height: 44px;
+                    font-weight: bold;
+                    color: $base-color;
+
+                    @media screen and (max-width: $break-md) {
+                        font-size: 33px;
+                        line-height: 33px;
+                        height: 385px;
+                    }
+                    
+                    @media screen and (min-width: $break-md) {
+                        height: 588px;
+                    }
+                }
+
+                #accueil-encarts {
+                    margin-top: -100px;
+
+                    .accueil-encart {
+                        border: solid 10px #fff;
+                        background: #fff;
+                        margin-bottom: 30px;
+                        text-align: center;
+
+                        &:hover {
+                            border-color: $encart-color;
+                        }
+
+                        h1 {
+                            display: block;
+                            margin: -25px auto 10px;
+                            height: 30px;
+                            width: 150px;
+                            line-height: 30px;
+                            font-size: 12px;
+                            text-transform: uppercase;
+                            color: #fff;
+
+                            &:before {
+                                content: "• ";
+                            }
+
+                            &:after {
+                                content: " •";
+                            }
+                        }
+
+                        h2 {
+                            margin: 60px 0 5px;
+                            padding: 0 30px;
+                            font-size: 22px;
+                            font-weight: bold;
+                            color: $base-color;
+                            
+                            &:after, &:before {
+                                border: 0;
+                            }
+                        }
+
+                        h3 {
+                            position: relative;
+                            margin-top: 0;
+                            padding: 0 30px;
+                            font-family: Merriweather;
+                            font-size: 14px;
+                            font-weight: bold;
+                            font-style: italic;
+                            color: $base-secondaire-color;
+                            
+                            &:after, &:before {
+                                border: 0;
+                            }
+                        }
+
+                        p {
+                            position: relative;
+                            margin: 20px 0 20px;
+                            padding: 0 30px;
+                            font-size: 14px;
+                            font-weight: $semibold-font;
+
+                            &:first-of-type {
+                                margin-top: 50px;
+
+                                &:before {
+                                    position: absolute;
+                                    content: "";
+                                    top: -30px;
+                                    left: 0;
+                                    right: 0;
+                                    margin: 0 auto;
+                                    height: 1px;
+                                    width: 50px;
+                                    border-top: solid 5px;
+                                    @include border-radius(5px, 5px);
+                                }
+                            }
+                        }
+
+                        &#accueil-cartographie-encart {
+                            background: #fff image-url("cartographie-pictogramme.png");
+                            background-repeat: no-repeat;
+                            background-position: 50% 20px;
+
+                            h1 {
+                                background: $cartographie-color;
+                            }
+
+                            p {
+                                &:before {
+                                    border-top-color: $cartographie-color;
+                                }
+                            }
+
+                            &:hover {
+                                h2 {
+                                    color: $cartographie-color;
+                                }
+                            }
+                        }
+
+                        &#accueil-covoiturage-encart {
+                            background: #fff image-url("covoiturage-pictogramme.png");
+                            background-repeat: no-repeat;
+                            background-position: 50% 20px;
+
+                            h1 {
+                                background: $covoiturage-color;
+                            }
+
+                            p {
+                                &:before {
+                                    border-top-color: $covoiturage-color;
+                                }
+                            }
+
+                            &:hover {
+                                h2 {
+                                    color: $covoiturage-color;
+                                }
+                            }
+                        }
+
+                        &#accueil-sel-encart {
+                            background: #fff image-url("sel-pictogramme.png");
+                            background-repeat: no-repeat;
+                            background-position: 50% 20px;
+
+                            h1 {
+                                background: $sel-color;
+                            }
+
+                            p {
+                                &:before {
+                                    border-top-color: $sel-color;
+                                }
+                            }
+
+                            &:hover {
+                                h2 {
+                                    color: $sel-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @media screen and (min-width: $break-md) {
+                    .accueil-bandeau {
+                        height: 389px;
+                        padding: 0;
+                        background: $base-color;
+                        background-position: 50% 50%;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        color: #fff;
+                        text-align: center;
+                        margin-bottom: 20px;
+
+                        &:last-of-type {
+                            margin-bottom: 0;
+                        }
+
+                        .calque {
+                            position: relative;
+                            height: 100%;
+                            padding: 60px 200px;
+
+                            .pictogramme {
+                                position: absolute;
+                                z-index: 2;
+                                top: 30px;
+                                left: 0;
+                                right: 0;
+                                height: 61px;
+                                width: 62px;
+                                margin: 0 auto;
+                            }
+
+                            .contenu {
+                                position: relative;
+                                z-index: 1;
+                                height: 100%;
+                                border: solid 10px transparent;
+                                padding: 25px;
+
+                                h1 {
+                                    font-size: 35px;
+                                    font-weight: bold;
+                                }
+
+                                p {
+                                    margin-bottom: 30px;
+                                    font-family: Merriweather;
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    font-style: italic;
+                                }
+
+                                .lien-application {
+                                    display: inline-block;
+                                    height: 50px;
+                                    line-height: 50px;
+                                    padding: 0 25px;
+                                    color: #fff;
+                                    font-family: ProximaNova;
+                                    font-style: normal;
+                                    font-weight: bold;
+                                    text-decoration: none;
+                                    text-transform: uppercase;
+                                    @include border-radius(50px, 50px);
+                                }
+                            }
+
+                            .liens {
+                                position: absolute;
+                                bottom: 10px;
+                                left: 0;
+                                right: 0;
+
+                                a {
+                                    color: #fff;
+                                    font-weight: bold;
+                                    text-decoration: none;
+
+                                    &:before {
+                                        content: "• ";
+                                    }
+
+                                    &:after {
+                                        content: " •";
+                                    }
+                                }
+                            }
+
+                            &:hover {
+                                .contenu {
+                                    background: #fff;
+                                    border-color: $encart-color;
+
+                                    h1 {
+                                        color: $base-color;
+                                    }
+
+                                    p {
+                                        color: $base-secondaire-color;
+                                    }
+                                }
+                            }
+                        }
+
+                        &#accueil-cartographie-bandeau {
+                            background-image: image-url("accueil/accueil-cartographie.jpg");
+
+                            .calque {
+                                .pictogramme {
+                                    background: image-url("cartographie-pictogramme-o.png");
+                                }
+
+                                .contenu {
+                                    .lien-application {
+                                        background-color: $cartographie-color;
+                                    }
+                                }
+
+                                &:hover {
+                                    background: rgba(247, 85, 39, 0.5);
+                                }
+                            }
+                        }
+
+                        &#accueil-covoiturage-bandeau {
+                            background-image: image-url("accueil/accueil-covoiturage.jpg");
+
+                            .calque {
+                                .pictogramme {
+                                    background: image-url("covoiturage-pictogramme-o.png");
+                                }
+
+                                .contenu {
+                                    .lien-application {
+                                        background-color: $covoiturage-color;
+                                    }
+                                }
+
+                                &:hover {
+                                    background: rgba(79, 185, 41, 0.5);
+                                }
+                            }
+                        }
+
+                        &#accueil-sel-bandeau {
+                            background-image: image-url("accueil/accueil-sel.jpg");
+
+                            .calque {
+                                .pictogramme {
+                                    background: image-url("sel-pictogramme-o.png");
+                                }
+
+                                .contenu {
+                                    .lien-application {
+                                        background-color: $sel-color;
+                                    }
+                                }
+
+                                &:hover {
+                                    background: rgba(243, 195, 6, 0.5);
+                                }
+                            }
+                        }
+                    }
+                }
+                @media screen and (max-width: $break-md) {
+                    .accueil-bandeau {
+                        display: none;
+                    }
+                }
+                
+                /*********** CARTOGRAPHIE ***********/
+                #categories-selecteur {
+                    ul#categories-liste {
+                        text-align: center;
+
+                        li {
+                            margin-bottom: 40px;
+                        }
+                    }
+                }
+                
+                .cartographie-map-container {
+                    border: solid 1px $filet-color;
+
+                    .cartography-poi-infobox {
+                        padding: 15px;
+
+                        .cartography-poi-infobox-image {
+                            margin: -15px -15px 15px;
+                                
+                            img {
+                                width: 100%;
+                            }
+                        }
+                        
+                        .cartography-poi-infobox-text {
+                            h1 {
+                                margin: 10px 0 5px;
+                                color: $cartographie-color;
+                                font-size: 14px;
+                                text-transform: uppercase;
+                            }
+
+                            .cartography-poi-infobox-address {
+                                font-size: 12px;
+                                padding-bottom: 10px;
+                                border-bottom: solid 1px $filet-color;
+                                margin-bottom: 10px;
+                            }
+
+                            .cartography-poi-infobox-description {
+                                font-size: 12px;
+
+                                p {
+                                    margin: 0;
+                                }
+                            }
+                        }
+
+                        .cartography-poi-infobox-icon {
+                            position: absolute;
+                            right: 0;
+                            left: 0;
+                            bottom: -17px;
+                            margin: 0 auto;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                
+                #cartographie-soumettre {
+                    text-align: center;
+                }
+                
+                /*********** COVOITURAGE ***********/
+                #covoiturage-offrir {
+                    .covoiturage-offrir-row {
+                        padding-bottom: 20px;
+                        padding-top: 20px;
+                        border-bottom: solid 1px $filet-color;
+                        
+                        &:first-of-type {
+                            padding-top: 0;
+                        }
+                        
+                        &:last-of-type {
+                            border: 0;
+                        }
+                        
+                        @media screen and (min-width: $break-sm) {
+                            div:first-of-type {
+                                padding-left: 0;
+                            }
+
+                            div:last-of-type {
+                                padding-right: 0;
+                            }
+                        }
+                        
+                        .form-group {
+                            margin-bottom: 0;
+                        }
+                        
+                        .row {
+                            margin-left: 0;
+                            margin-right: 0;
+                        }
+                    }
+                    
+                    #covoiturage-offrir-depart, #covoiturage-offrir-arrivee {
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        background-color: $encart-color;
+                        color: $base-secondaire-color;
+                        font-weight: bold;
+                        
+                        span {
+                            display: block;
+                            padding: 15px 0 15px 30px;
+                            background-position: center left;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                    
+                    #covoiturage-offrir-depart {
+                        span {
+                            background-image: image-url('cartographie-depart.png');
+                            
+                            @media screen and (min-width: $break-sm) {
+                                border-bottom: solid 1px $filet-color;
+                            }
+                        }
+                    }
+                    
+                    #covoiturage-offrir-arrivee {
+                        span {
+                            background-image: image-url('cartographie-arrivee.png');
+                        }
+                    }
+                    
+                    #occ, #reg {
+                        display: none;
+                        
+                        .covoiturage-offrir-row {
+                            padding-top: 20px;
+                            border-bottom: solid 1px $filet-color;
+                        }
+                        
+                        .form-group {
+                            margin-bottom: 0;
+                        }
+                        
+                        .form-datetime, .form-date, .form-time {
+                            margin-top: 5px;
+                        }
+                    }
+                    
+                    #occ {
+                        input {
+                            width: calc(50% - 10px);
+                        }
+                    }
+                    
+                    #covoiturage-offrir-type-trajet {
+                        padding-top: 10px;
+                        
+                        ul {
+                            margin-bottom: 0;
+                            margin-left: 0;
+                            
+                            li {
+                                &:first-of-type {
+                                    padding-left: 0;
+                                    margin-left: 0;
+                                }
+                            }
+                        }
+                    }
+                    
+                    #covoiturage-offrir-gratuit {
+                        label {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+                
+                #covoiturage-rechercher {
+                    #covoiturage-rechercher-depart, #covoiturage-rechercher-arrivee {
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        background-color: $encart-color;
+                        color: $base-secondaire-color;
+                        font-weight: bold;
+                        
+                        span {
+                            display: block;
+                            padding: 15px 0 15px 30px;
+                            background-position: center left;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                    
+                    #covoiturage-rechercher-depart {
+                        span {
+                            background-image: image-url('cartographie-depart.png');
+                            
+                            @media screen and (min-width: $break-sm) {
+                                border-bottom: solid 1px $filet-color;
+                            }
+                        }
+                    }
+                    
+                    #covoiturage-rechercher-arrivee {
+                        span {
+                            background-image: image-url('cartographie-arrivee.png');
+                        }
+                    }
+                    
+                    #occ, #reg {
+                        display: none;
+                        
+                        .form-datetime, .form-date, .form-time {
+                            margin-top: 5px;
+                        }
+                    }
+                    
+                    #occ {
+                        input {
+                            width: calc(50% - 10px);
+                        }
+                    }
+                    
+                    #covoiturage-rechercher-type-trajet {
+                        padding-top: 10px;
+                        
+                        ul {
+                            margin-bottom: 0;
+                            margin-left: 0;
+                            
+                            li {
+                                &:first-of-type {
+                                    padding-left: 0;
+                                    margin-left: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                #covoiturage-recherche-resume {
+                    margin: -15px 0 50px;
+                    
+                    #covoiturage-recherche-resume-date {
+                        font-weight: $semibold-font;
+                        text-transform: capitalize;
+                    }
+                    
+                    #covoiturage-recherche-resume-type-trajet {
+                        color: $base-secondaire-color;
+                        font-weight: $semibold-font;
+                    }
+                    
+                    #covoiturage-recherche-resume-depart-arrivee {
+                        margin-top: 15px;
+                        margin-bottom: 15px;
+                        padding: 10px;
+                        background-color: $encart-color;
+                        
+                        #covoiturage-recherche-resume-depart, #covoiturage-recherche-resume-arrivee {
+                            float: left;
+                            padding: 0 10px 0 35px;
+                            background-repeat: no-repeat;
+                            background-position: 10px center;
+                            color: $base-secondaire-color;
+                            font-weight: $semibold-font;
+                            line-height: 30px;
+                        }
+                        
+                        #covoiturage-recherche-resume-depart {
+                            background-image: image-url('cartographie-recherche-depart.png');
+                        }
+
+                        #covoiturage-recherche-resume-arrivee {
+                            border-left: solid 1px $base-secondaire-color;
+                            background-image: image-url('cartographie-recherche-arrivee.png');
+                        }
+
+                        .covoiturage-recherche-resume-heure {
+                            display: inline-block;
+                            padding: 5px 10px;
+                            background-color: $base-secondaire-color;
+                            color: #fff;
+                            font-weight: $semibold-font;
+                        }
+                    }
+                }
+                
+                #covoiturage-recherche-resultats {
+                    .covoiturage-recherche-resultat {
+                        margin-bottom: 15px;
+                        padding-bottom: 15px;
+                        border-bottom: solid 1px $filet-color;
+                            
+                        .covoiturage-recherche-resultat-details {
+                            margin-bottom: 20px;
+                            padding: 15px;
+                            border-top: solid 1px $filet-color;
+                    
+                            .covoiturage-recherche-resultat-haut {
+                                border-bottom: solid 1px $filet-color;
+                                padding-bottom: 20px;
+                                
+                                .covoiturage-recherche-resultat-organisateur {
+                                    padding-top: 25px;
+                                    
+                                    .pseudo {
+                                        font-weight: $semibold-font;
+                                    }
+                                }
+
+                                .covoiturage-recherche-resultat-postuler {
+                                    height: 80px;
+                                    padding-top: 25px;
+                                }
+                            }
+                            
+                            .covoiturage-recherche-resultat-bas {
+                                padding-top: 20px;
+                                
+                                .covoiturage-recherche-resultat-type-trajet {
+                                    display: inline-block;
+                                    padding: 5px 10px;
+                                    margin-right: 10px;
+                                    background-color: $base-color;
+                                    color: #fff;
+                                    font-weight: $semibold-font;
+                                    text-transform: uppercase;
+                                }
+                                
+                                .covoiturage-recherche-resultat-date {
+                                    font-weight: $semibold-font;
+                                    text-transform: capitalize;
+                                }
+                                
+                                .covoiturage-recherche-resultat-depart-arrivee {
+                                    margin: 15px 0;
+                                    padding: 10px 0;
+                                    background-color: $encart-color;
+                                    background-image: image-url('fleche-droite.png');
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    text-align: center;
+                                    
+                                    .covoiturage-recherche-resultat-depart, .covoiturage-recherche-resultat-arrivee {
+                                        display: inline-block;
+                                        padding-left: 20px;
+                                        background-repeat: no-repeat;
+                                        
+                                        @media screen and (min-width: $break-sm) {
+                                            background-position: 20px center;
+                                        }
+                                        
+                                        @media screen and (max-width: $break-sm) {
+                                            background-position: 5px center;
+                                        }
+                                    }
+                                    
+                                    .covoiturage-recherche-resultat-depart {
+                                        background-image: image-url('cartographie-depart.png');
+                                    }
+
+                                    .covoiturage-recherche-resultat-arrivee {
+                                        background-image: image-url('cartographie-arrivee.png');
+                                    }
+                                }
+                                
+                                .covoiturage-recherche-resultat-gratuit {
+                                    padding-left: 28px;
+                                    background-image: image-url('covoiturage-gratuit.png');
+                                    background-repeat: no-repeat;
+                                    background-position: left center;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                #covoiturage-offres {
+                    .covoiturage-offre {
+                        padding-bottom: 15px;
+                        margin-bottom: 30px;
+                        border-bottom: solid 1px $filet-color;
+                        
+                        @media screen and (min-width: $break-md) {
+                            .cartographie-map-container {
+                                margin-right: -15px;
+                            }
+                        }
+                        
+                        .covoiturage-offre-details {
+                            padding: 15px 15px 0 15px;
+                            border-top: solid 1px $filet-color;
+                    
+                            .covoiturage-offre-haut {
+                                border-bottom: solid 1px $filet-color;
+                                padding-bottom: 15px;
+                                
+                                .covoiturage-offre-date-publication {
+                                    font-weight: bold;
+                                    text-transform: uppercase;
+                                    line-height: 25px;
+                                }
+                            }
+                            
+                            .covoiturage-offre-milieu {
+                                padding-bottom: 15px;
+                                padding-top: 15px;
+                                background-color: $encart-color;
+                                
+                                .covoiturage-offre-type-trajet {
+                                    margin-right: 10px;
+                                }
+                                
+                                .covoiturage-offre-date {
+                                    font-weight: $semibold-font;
+                                    text-transform: capitalize;
+                                }
+                                
+                                .covoiturage-offre-depart-arrivee {
+                                    margin: 15px 0;
+                                    padding: 10px 0;
+                                    background-color: #fff;
+                                    background-image: image-url('fleche-droite.png');
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    text-align: center;
+                                    
+                                    .covoiturage-offre-depart, .covoiturage-offre-arrivee {
+                                        display: inline-block;
+                                        padding-left: 20px;
+                                        background-repeat: no-repeat;
+                                        
+                                        @media screen and (min-width: $break-sm) {
+                                            background-position: 20px center;
+                                        }
+                                        
+                                        @media screen and (max-width: $break-sm) {
+                                            background-position: 5px center;
+                                        }
+                                    }
+                                    
+                                    .covoiturage-offre-depart {
+                                        background-image: image-url('cartographie-depart.png');
+                                    }
+
+                                    .covoiturage-offre-arrivee {
+                                        background-image: image-url('cartographie-arrivee.png');
+                                    }
+                                }
+                                
+                                .covoiturage-offre-gratuit {
+                                    padding-left: 28px;
+                                    background-image: image-url('covoiturage-gratuit.png');
+                                    background-repeat: no-repeat;
+                                    background-position: left center;
+                                }
+                            }
+                            
+                            .covoiturage-offre-bas {
+                                #covoiturage-offre-inscrits-titre {
+                                    padding: 10px 15px;
+                                    background-color: $base-color;
+                                    color: #fff;
+                                    font-weight: $semibold-font;
+                                    text-transform: uppercase;
+                                }
+                            }
+                            
+                            .covoiturage-offre-inscrits {
+                                padding-bottom: 15px;
+                                    
+                                .covoiturage-offre-inscrit {
+                                    padding-bottom: 15px;
+                                    padding-top: 15px;
+                                    border-bottom: solid 1px $filet-color;
+                                    
+                                    &:last-of-type {
+                                        padding-bottom: 0;
+                                        border: 0;
+                                    }
+                                    
+                                    .covoiturage-offre-pseudo {
+                                        padding-bottom: 15px;
+                                        padding-top: 15px;
+                                    }
+                                    
+                                    .covoiturage-offre-actions {
+                                        padding-bottom: 25px;
+                                        padding-top: 25px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                #covoiturage-inscriptions {
+                    .covoiturage-inscription {
+                        margin-bottom: 15px;
+                        padding-bottom: 15px;
+                        border-bottom: solid 1px $filet-color;
+                            
+                        .covoiturage-inscription-details {
+                            margin-bottom: 20px;
+                            padding: 15px;
+                            border-top: solid 1px $filet-color;
+                    
+                            .covoiturage-inscription-haut {
+                                border-bottom: solid 1px $filet-color;
+                                padding-bottom: 20px;
+                                
+                                .covoiturage-inscription-organisateur {
+                                    padding-top: 25px;
+                                    
+                                    .pseudo {
+                                        font-weight: $semibold-font;
+                                    }
+                                }
+
+                                .covoiturage-inscription-postuler {
+                                    height: 80px;
+                                    padding-top: 25px;
+                                }
+                            }
+                            
+                            .covoiturage-inscription-bas {
+                                padding-top: 20px;
+                                
+                                .covoiturage-inscription-date {
+                                    font-weight: $semibold-font;
+                                    text-transform: capitalize;
+                                }
+                                
+                                .covoiturage-inscription-depart-arrivee {
+                                    margin: 15px 0;
+                                    padding: 10px 0;
+                                    background-color: $encart-color;
+                                    background-image: image-url('fleche-droite.png');
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    text-align: center;
+                                    
+                                    .covoiturage-inscription-depart, .covoiturage-inscription-arrivee {
+                                        display: inline-block;
+                                        padding-left: 20px;
+                                        background-repeat: no-repeat;
+                                        
+                                        @media screen and (min-width: $break-sm) {
+                                            background-position: 20px center;
+                                        }
+                                        
+                                        @media screen and (max-width: $break-sm) {
+                                            background-position: 5px center;
+                                        }
+                                    }
+                                    
+                                    .covoiturage-inscription-depart {
+                                        background-image: image-url('cartographie-depart.png');
+                                    }
+
+                                    .covoiturage-inscription-arrivee {
+                                        background-image: image-url('cartographie-arrivee.png');
+                                    }
+                                }
+                                
+                                .covoiturage-inscription-gratuit {
+                                    padding-left: 28px;
+                                    background-image: image-url('covoiturage-gratuit.png');
+                                    background-repeat: no-repeat;
+                                    background-position: left center;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                /*********** ACTUALITÉS ***********/
+                .actualite {
+                    .actualite-titre {
+                        position: relative;
+                        margin-bottom: 75px;
+
+                        &:after {
+                            position: absolute;
+                            content: "";
+                            bottom: -25px;
+                            left: 0;
+                            right: 0;
+                            margin: 0 auto;
+                            height: 1px;
+                            width: 50px;
+                            border-bottom: solid 5px $base-color;
+                            @include border-radius(5px, 5px);
+                        }
+
+                        &:before {
+                            position: absolute;
+                            content: "";
+                            bottom: -23px;
+                            left: 15px;
+                            right: 15px;
+                            margin: 0 auto;
+                            height: 1px;
+                            border-bottom: solid 1px $filet-color;
+                        }
+
+                        h1 {
+                            position: relative;
+                            z-index: 1;
+                            margin-top: 40px;
+                            background: #fff;
+                            text-align: center;
+                            text-transform: uppercase;
+                            font-size: 24px;
+                            font-weight: bold;
+
+                            @media screen and (min-width: $break-md) {
+                                &:after, &:before {
+                                    position: absolute;
+                                    z-index: -1;
+                                    content: "";
+                                    top: 10px;
+                                    width: 15%;
+                                    border-bottom: solid 1px $filet-color;
+                                }
+                                &:after {
+                                    right: 0;
+                                }
+
+                                &:before {
+                                    left: 0;
+                                }
+                            }
+                        }
+
+                        h2 {
+                            color: $base-secondaire-color;
+                            text-align: center;
+                            font-family: Merriweather;
+                            font-size: 14px;
+                            font-style: italic;
+                        }
+                    }
+                    
+                    .actualite-contenu {
+                        padding: 0;
+                        
+                        @media screen and (min-width: $break-sm) {
+                            .col-md-6 {
+                                &:first-of-type {
+                                    padding-left: 0;
+                                }
+                                
+                                &:last-of-type {
+                                    padding-right: 0;
+                                }
+                            }
+                        }
+                        
+                        .actualite-theme {
+                            position: absolute;
+                            left: 20px;
+                            top: 20px;
+                            padding: 5px 10px;
+                            background: #fff;
+                            font-weight: bold;
+                        }
+
+                        .actualite-date {
+                            position: absolute;
+                            left: 30px;
+                            top: 45px;
+                            padding: 5px 10px;
+                            background: $base-color;
+                            line-height: 12px;
+                            color: #fff;
+                            font-size: 12px;
+                            text-transform: uppercase;
+                        }
+                            
+                        .actualite-liens {
+                            margin-top: 25px;
+                            padding: 15px 0;
+                            border-top: solid 1px $filet-color;
+                            border-bottom: solid 1px $filet-color;
+                            font-weight: bold;
+                            
+                            ul {
+                                margin: 0;
+                                padding: 0;
+                                
+                                li {
+                                    a {
+                                        color: $base-color;
+                                        
+                                        &:hover {
+                                            text-decoration: none;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    &:not(:last-of-type) {
+                        .actualite-contenu {
+                            padding-bottom: 50px;
+                            border-bottom: solid 1px $filet-color;
+                        }
+                    }
+                }
+                
+                /*********** PARTENAIRES ***********/
+                .partenaires {
+                    text-align: center;
+                    
+                    img {
+                        border: solid 1px $filet-color;
+                        margin: 0.5vw 0.5%;
+                        
+                        @media screen and (min-width: $break-sm) {
+                            width: 19%;
+                        }
+                        
+                        @media screen and (max-width: $break-sm) {
+                            width: 32.33333%;
+                        }
+                        
+                        display: inline-block;
+                    }
+                    
+                    margin-bottom: 80px;
+                }
+                
+                /********** COMPTE **********/
+                .pseudo {
+                    font-size: 17px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+                
+                .photo-profil {
+                    display: inline-block;
+                    height: 80px;
+                    width: 80px;
+                    border: solid 1px $filet-color;
+                    background: $filet-color;
+                    overflow: hidden;
+                    
+                    &.photo-profil-ronde {
+                        @include border-radius(50%);
+                    }
+                    
+                    img {
+                        display: inline-block;
+                    }
+                }
+                
+                #informations-personnelles {
+                    background: $encart-color;
+                    padding: 15px;
+                    
+                    .row {
+                        margin: 0;
+                        padding: 10px 0;
+                        border-bottom: solid 1px $filet-color;
+                        
+                        &:first-of-type {
+                            padding-bottom: 20px;
+                            padding-top: 0;
+                            border-bottom: 0;
+                        }
+                        
+                        &:last-of-type {
+                            padding-bottom: 0;
+                            border-bottom: 0;
+                        }
+                        
+                        & > div {
+                            padding-left: 0;
+                        }
+                        
+                        .champ {
+                            color: $base-secondaire-color;
+                            font-weight: bold;
+                        }
+                        
+                        .photo-profil {
+                            height: 60px;
+                            width: 60px;
+                        }
+                    }
+                }
+                
+                /********** COULEURS **********/
+                .cartographie {
+                    a, a:hover {
+                        text-decoration: none;
+                        color: $cartographie-color;
+                    }
+                    
+                    ul.pagination {
+                        & > li {
+                            & > a, & > span {
+                                color: $base-color;
+                            }
+
+                            &.active {
+                                & > a {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .slider {
+                        background-image: image-url('slider-cartographie.jpg');
+                    }
+                    
+                    #onglets {
+                        ul {
+                            li {
+                                &.active {
+                                    a {
+                                        color: $cartographie-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    #sous-onglets {
+                        ul {
+                            li {
+                                a {
+                                    &:hover {
+                                        border-color: $cartographie-rollover-color;
+                                        background-color: $cartographie-rollover-color;
+                                    }
+                                }
+                                
+                                &.active {
+                                    a {
+                                        border-color: $cartographie-color;
+                                        background-color: $cartographie-color;
+                                        
+                                        &:hover {
+                                            border-color: $cartographie-color;
+                                            background-color: $cartographie-color;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    #corps {
+                        .bloc-titre {
+                            &:after {
+                                border-bottom-color: $cartographie-color;
+                            }
+                        }
+                    }
+                    
+                    .btn {
+                        background-color: $cartographie-color;
+                        color: #fff;
+                        
+                        &:hover {
+                            background-color: $cartographie-rollover-color;
+                            color: #fff;
+                        }
+                    }
+                    
+                    form {
+                        [type="checkbox"], [type="radio"] {
+                            &:checked {
+                                & + label:after {
+                                    background: $cartographie-color;
+                                }
+                            }
+                        }
+                        
+                        #id_cartography_category_all {
+                            &:not(:checked), &:checked {
+                                & + label {
+                                    padding-left: 20px;
+                                    color: $cartographie-color;
+
+                                    /* Cree les nouvelles checkbox vides */
+                                    &:before {
+                                        content: '';
+                                        border: 0;
+                                    }
+
+                                    &:after {
+                                        content: '♦';
+                                        font-size: 15px;
+                                        line-height: 20px;
+                                        color: $cartographie-color;
+                                        background: #fff;
+                                    }
+                                }
+                            }
+
+                            &:checked {
+                                & + label {
+                                    &:after {
+                                        background: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                .covoiturage {
+                    a, a:hover {
+                        text-decoration: none;
+                        color: $covoiturage-color;
+                    }
+                    
+                    ul.pagination {
+                        & > li {
+                            & > a, & > span {
+                                color: $base-color;
+                            }
+
+                            &.active {
+                                & > a {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .slider {
+                        background-image: image-url('slider-covoiturage.jpg');
+                    }
+                    
+                    #onglets {
+                        ul {
+                            li {
+                                &.active {
+                                    a {
+                                        color: $covoiturage-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    #sous-onglets {
+                        ul {
+                            li {
+                                a {
+                                    &:hover {
+                                        border-color: $covoiturage-rollover-color;
+                                        background-color: $covoiturage-rollover-color;
+                                    }
+                                }
+                                
+                                &.active {
+                                    a {
+                                        border-color: $covoiturage-color;
+                                        background-color: $covoiturage-color;
+                                        
+                                        &:hover {
+                                            border-color: $covoiturage-color;
+                                            background-color: $covoiturage-color;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    #corps {
+                        .bloc-titre {
+                            &:after {
+                                border-bottom-color: $covoiturage-color;
+                            }
+                        }
+                    }
+                    
+                    .btn {
+                        background-color: $covoiturage-color;
+                        color: #fff;
+                        
+                        &:hover {
+                            background-color: $covoiturage-rollover-color;
+                            color: #fff;
+                        }
+                    }
+                    
+                    form {
+                        [type="checkbox"], [type="radio"] {
+                            &:checked {
+                                & + label:after {
+                                    background: $covoiturage-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .sel {
+                    a, a:hover {
+                        text-decoration: none;
+                        color: $sel-color;
+                    }
+                    
+                    ul.pagination {
+                        & > li {
+                            & > a, & > span {
+                                color: $base-color;
+                            }
+
+                            &.active {
+                                & > a {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .slider {
+                        background-image: image-url('slider-sel.jpg');
+                    }
+                    
+                    #onglets {
+                        ul {
+                            li {
+                                &.active {
+                                    a {
+                                        color: $sel-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    #sous-onglets {
+                        ul {
+                            li {
+                                a {
+                                    &:hover {
+                                        border-color: $sel-rollover-color;
+                                        background-color: $sel-rollover-color;
+                                    }
+                                }
+                                
+                                &.active {
+                                    a {
+                                        border-color: $sel-color;
+                                        background-color: $sel-color;
+                                        
+                                        &:hover {
+                                            border-color: $sel-color;
+                                            background-color: $sel-color;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    #corps {
+                        .bloc-titre {
+                            &:after {
+                                border-bottom-color: $sel-color;
+                            }
+                        }
+                    }
+                    
+                    .btn {
+                        background-color: $sel-color;
+                        color: #fff;
+                        
+                        &:hover {
+                            background-color: $sel-rollover-color;
+                            color: #fff;
+                        }
+                    }
+                    
+                    form {
+                        [type="checkbox"], [type="radio"] {
+                            &:checked {
+                                & + label:after {
+                                    background: $sel-color;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        /*********** FOOTER ***********/
+        footer {
+            background: #000;
+            
+            #footer-menu {
+                background: $footer-color;
+                border-bottom: solid 1px $footer-border-color;
+                
+                ul {
+                    margin: 0;
+                    text-align: center;
+                    
+                    li {
+                        padding: 15px 30px;
+                        
+                        a {
+                            color: $base-secondaire-color;
+                            text-transform: uppercase;
+                            font-size: 12px;
+                            font-weight: $semibold-font;
+                            text-decoration: none;
+                            
+                            &:hover {
+                                color: #fff;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            #footer-reseaux-sociaux {
+                height: 80px;
+                background: $footer-color;
+                
+                ul {
+                    margin: 30px 0;
+                    text-align: center;
+                    
+                    li {
+                        padding: 0 30px;
+                        
+                        a {
+                            position: relative;
+                            display: inline-block;
+                            padding: 0 25px;
+                            color: $base-secondaire-color;
+                            font-size: 15px;
+                            font-weight: $semibold-font;
+                            text-transform: uppercase;
+                            text-decoration: none;
+                            
+                            &:hover {
+                                color: #fff;
+                                text-decoration: none;
+                            }
+                            
+                            &:before {
+                                position: absolute;
+                                content: '';
+                                left: 0;
+                                top: 2px;
+                                display: block;
+                                height: 15px;
+                                width: 15px;
+                                background-image: image-url('footer-reseaux-sociaux.png');
+                            }
+                            
+                            &#footer-facebook-page {
+                                &:before {
+                                    background-position: 0 0;
+                                }
+
+                                &:hover {
+                                    &:before {
+                                        background-position: -15px 0;
+                                    }
+                                }
+                            }
+                            
+                            &#footer-twitter-page {
+                                &:before {
+                                    background-position: -30px 0;
+                                }
+
+                                &:hover {
+                                    &:before {
+                                        background-position: -45px 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            #footer-copyright {
+                height: 30px;
+                color: $base-color;
+                font-size: 14px;
+                font-family: Merriweather;
+                font-style: italic;
+                font-weight: bold;
+                
+                .container {
+                    position: relative;
+                    height: 100%;
+                    padding: 0;
+                    
+                    .content {
+                        position: absolute;
+                        bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+    
+    #cookie-banner {
+        z-index: 999;
+    }
+}
+
+.etiquette {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: $base-color;
+    color: #fff;
+    font-weight: $semibold-font;
+    text-transform: uppercase;
+    
+    &.etiquette-cartographie {
+        background-color: $cartographie-color;
+    }
+    
+    &.etiquette-covoiturage {
+        background-color: $covoiturage-color;
+    }
+    
+    &.etiquette-sel {
+        background-color: $sel-color;
+    }
+}
+
+.embed-responsive-square {
+    padding-bottom: 100%;
+}
+
+em {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+a, .btn-discret {
+    background: none;
+    border: 0;
+    text-decoration: none;
+    font-weight: $semibold-font;
+    color: $base-color;
+    
+    &:hover, &:active {
+        text-decoration: none;
+        color: $base-rollover-color;
+        @include box-shadow(none);
+    }
+}
+
+.v-gap-10 {
+    margin-top: 10px;
+}
+
+.v-gap-15 {
+    margin-top: 15px;
+}
+
+.v-gap-20 {
+    margin-top: 20px;
+}
+
+.v-gap-30 {
+    margin-top: 30px;
+}
+
+.v-gap-40 {
+    margin-top: 40px;
+}
+
+.v-gap-50 {
+    margin-top: 50px;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    background: $base-color;
+    font-family: ProximaNova;
+    color: #fff;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    @include border-radius(50px, 50px);
+    
+    &:hover, &:active {
+        background: $base-rollover-color;
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    &.btn-refuser {
+        position: relative;
+        width: 35px;
+        padding-left: 5px;
+        padding-right: 5px;
+        line-height: 21px;
+        font-size: 30px;
+        font-weight: 100;
+    }
+}
+
+.alert {
+    margin: 0;
+    @include border-radius(0, 0);
+}
+      
+.pagination-nav {
+    margin-top: 40px;
+    background-color: $encart-color;
+
+    ul.pagination {
+        margin: 0;
+        padding: 10px 0 5px;
+        
+        & > li {
+            margin: 0;
+            
+            & > a, & > span {
+                border: none;
+                color: $base-color;
+                background-color: #fff;
+                margin: 0 5px;
+            }
+
+            &.active {
+                & > a {
+                    background-color: $base-color;
+                    color: #fff;
+
+                    &:hover {
+                        background-color: $base-color;
+                    }
+                }
+            }
+
+            &:first-child, &:last-child {
+                & > a {
+                    @include border-radius(0, 0);
+                }
+            }
+        }
+    }
+}
+
+
+
+[type="checkbox"] {
+    &:not(:checked), &:checked {
+        /* Cache les checkbox d'origine */
+        position: absolute;
+        left: -9999px;
+        
+        & + label {
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+            line-height: 20px;
+            
+            /* Cree les nouvelles checkbox vides */
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 16px;
+                height: 16px;
+                border: solid 1px $filet-color;
+            }
+            
+            /* Coche les checkbox */
+            &:after {
+                content: '•';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 16px;
+                height: 16px;
+                line-height: 14px;
+                text-align: center;
+                font-size: 26px;
+                color: #fff;
+                @include transition-property(all);
+                @include transition-duration(.5s);
+            }
+        }
+    }
+    
+    &:not(:checked) {
+        & + label:after {
+            background: #fff;
+            opacity: 0;
+            transform: scale(0);
+        }
+    } 
+    
+    &:checked {
+        & + label:after {
+            background: $base-color;
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    &:disabled {
+        &:not(:checked), &:checked {
+            & + label:before {
+                @include box-shadow(none);
+                border-color: #bbb;
+                background-color: $filet-color;
+            }
+        }
+        
+        &:not(:checked) {
+            & + label:after {
+                color: #999;
+            }
+        }
+        
+        &:checked {
+            & + label:after {
+                color: #aaa;
+            }
+        }
+    }
+    
+    &:focus {
+        &:not(:checked), &:checked {
+            & + label:before {
+                border: 1px dotted blue;
+            }
+        }
+    }
+}
+
+[type="radio"] {
+    &:not(:checked), &:checked {
+        /* Cache les radios d'origine */
+        position: absolute;
+        left: -9999px;
+        
+        & + label {
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+            line-height: 20px;
+            
+            /* Cree les nouvelles radios vides */
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 16px;
+                height: 16px;
+                border: solid 1px $filet-color;
+                @include border-radius(50%, 50%);
+            }
+            
+            /* Coche les radios */
+            &:after {
+                content: '■';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 16px;
+                height: 16px;
+                line-height: 16px;
+                text-align: center;
+                font-size: 10px;
+                color: #fff;
+                @include border-radius(50%, 50%);
+                @include transition-property(all);
+                @include transition-duration(.2s);
+            }
+        }
+    }
+    
+    &:not(:checked) {
+        & + label:after {
+            background: #fff;
+            opacity: 0;
+            transform: scale(0);
+        }
+    } 
+    
+    &:checked {
+        & + label:after {
+            background: $base-color;
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    &:disabled {
+        &:not(:checked), &:checked {
+            & + label:before {
+                @include box-shadow(none);
+                border-color: #bbb;
+                background-color: $filet-color;
+            }
+        }
+        
+        &:not(:checked) {
+            & + label:after {
+                color: #999;
+            }
+        }
+        
+        &:checked {
+            & + label:after {
+                color: #aaa;
+            }
+        }
+    }
+    
+    &:focus {
+        &:not(:checked), &:checked {
+            & + label:before {
+                border: 1px dotted blue;
+            }
+        }
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+.datepicker {
+    @include border-radius(0, 0);
+    @include box-shadow(none);
+    
+    .prev {
+        &:after {
+            content: "\e079";
+        }
+    }
+    
+    .next {
+        &:after {
+            content: "\e080";
+        }
+    }
+    
+    .prev, .next {
+        position: relative;
+            
+        &:hover {
+            &:after {
+                background-color: $filet-color;
+                @include border-radius(5px);
+            }
+        }
+        
+        &:after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            line-height: 28px;
+            font-family: "Glyphicons Halflings";
+            font-size: 14px;
+            color: $base-color;
+            background-color: #fff;
+        }
+    }
+    
+    table {
+        thead {
+            tr {
+                th {
+                    &.datepicker-switch, &.prev, &.next {
+                        &:hover {
+                            background-color: $filet-color;
+                        }
+                    }
+                }
+            }
+        }
+        
+        tbody {
+            tr {
+                td.day {
+                    &:hover {
+                        background-color: $filet-color;
+                    }
+
+                    &.active.active {
+                        background-color: $base-color;
+
+                        &:hover {
+                            background-color: $filet-color;
+                        }
+                    }
+                }
+                
+                td {
+                    .month {
+                        &:hover {
+                            background-color: $filet-color;
+                        }
+                        
+                        &.active.active {
+                            background-color: $base-color;
+
+                            &:hover {
+                                background-color: $filet-color;
+                            }
+                        }
+                    }
+                    
+                    .year {
+                        &:hover {
+                            background-color: $filet-color;
+                        }
+                        
+                        &.active.active {
+                            background-color: $base-color;
+
+                            &:hover {
+                                background-color: $filet-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        tfoot {
+            tr {
+                th {
+                    
+                    &:hover {
+                        background-color: $filet-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.required {
+    label {
+        &:after {
+            content: "*";
+            top: 0;
+        }
+    }
+}
+
+.required-consigne {
+    color: $filet-color;
+    border-top: solid 1px $filet-color;
+    border-bottom: solid 1px $filet-color;
+    padding: 10px 0 10px 10px;
+    margin-top: 50px;
+    font-weight: bold;
+    
+    &:before {
+        content: "*";
+        left: 10px;
+        top: 10px;
+    }
+}
+
+.form-inline {
+    ul.list-inline {
+        margin-left: 0;
+    }
+}
+
+.form-control {
+    height:40px;
+    border-color: $filet-color;
+    @include border-radius(0, 0);
+    @include box-shadow(none);
+    background: none;
+}
+
+.form-datetime {
+    position: relative;
+    z-index: 0;
+        
+    &:before {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        content: "\e114";
+        font-family: "Glyphicons Halflings";
+        font-size: 14px;
+        color: $filet-color;
+    }
+        
+    &:after {
+        position: absolute;
+        right: calc(50% + 20px);
+        top: 10px;
+        content: "\e114";
+        font-family: "Glyphicons Halflings";
+        font-size: 14px;
+        color: $filet-color;
+    }
+    
+    .form-control {
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        margin-left: 20px;
+        padding-right: 40px;
+        
+        &:first-of-type {
+            margin-left: 0;
+        }
+    }
+}
+
+.form-date, .form-time {
+    position: relative;
+    z-index: 0;
+    width: 50%;
+    
+    &:before {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        content: "\e114";
+        font-family: "Glyphicons Halflings";
+        font-size: 14px;
+        color: $filet-color;
+    }
+    
+    .form-control {
+        position: relative;
+        z-index: 1;
+        padding-right: 40px;
+    }
+}
+
+.form-select {
+    position: relative;
+    z-index: 0;
+        
+    &:before {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        content: "\e114";
+        font-family: "Glyphicons Halflings";
+        font-size: 14px;
+        color: $filet-color;
+    }
+    
+    select {
+        @include appearance(none);
+        position: relative;
+        z-index: 1;
+        padding-right: 40px;
+    }
+}
+
+.bootstrap-timepicker-widget {
+    @include border-radius(0, 0);
+    @include box-shadow(none);
+    
+    table {
+        td {
+            a {
+                height: 30px;
+                width: 30px;
+
+                &:hover {
+                    background-color: $filet-color;
+                }
+            }
+        }
+    }
+    
+    input {
+        @include border-radius(0, 0);
+    }
+}
+
+/********* FONTS **********/
+/********** Merriweather **********/
+/* Normal */
+@include font-face(
+"Merriweather",
+font-files(
+"Merriweather/Merriweather-Light.ttf", truetype
+),
+"",
+200,
+normal,
+"",
+☺
+);
+
+@include font-face(
+"Merriweather",
+font-files(
+"Merriweather/Merriweather.ttf", truetype
+),
+"",
+400,
+normal,
+"",
+☺
+);
+
+@include font-face(
+"Merriweather",
+font-files(
+"Merriweather/Merriweather-Bold.ttf", truetype
+),
+"",
+700,
+normal,
+"",
+☺
+);
+
+@include font-face(
+"Merriweather",
+font-files(
+"Merriweather/Merriweather-Heavy.ttf", truetype
+),
+"",
+900,
+normal,
+"",
+☺
+);
+
+/* Italic */
+@include font-face(
+"Merriweather",
+font-files(
+"Merriweather/Merriweather-LightItalic.ttf", truetype
+),
+"",
+200,
+italic,
+"",
+☺
+);
+
+@include font-face(
+"Merriweather",
+font-files(
+"Merriweather/Merriweather-Italic.ttf", truetype
+),
+"",
+400,
+italic,
+"",
+☺
+);
+
+@include font-face(
+"Merriweather",
+font-files(
+"Merriweather/Merriweather-BoldItalic.ttf", truetype
+),
+"",
+700,
+italic,
+"",
+☺
+);
+
+@include font-face(
+"Merriweather",
+font-files(
+"Merriweather/Merriweather-HeavyItalic.ttf", truetype
+),
+"",
+900,
+italic,
+"",
+☺
+);
+
+
+/********** ProximaNova **********/
+/* Normal */
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-Light.otf", opentype
+),
+"",
+200,
+normal,
+"",
+☺
+);
+
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-Regular.otf", opentype
+),
+"",
+400,
+normal,
+"",
+☺
+);
+
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-Semibold.otf", opentype
+),
+"",
+600,
+normal,
+"",
+☺
+);
+
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-Bold.otf", opentype
+),
+"",
+700,
+normal,
+"",
+☺
+);
+
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-Extrabld.otf", opentype
+),
+"",
+800,
+normal,
+"",
+☺
+);
+
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-Black.otf", opentype
+),
+"",
+900,
+normal,
+"",
+☺
+);
+
+/* Italic */
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-LightIt.otf", opentype
+),
+"",
+200,
+italic,
+"",
+☺
+);
+
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-RegularIt.otf", opentype
+),
+"",
+400,
+italic,
+"",
+☺
+);
+
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-SemiboldIt.otf", opentype
+),
+"",
+600,
+italic,
+"",
+☺
+);
+
+@include font-face(
+"ProximaNova",
+font-files(
+"ProximaNova/ProximaNova-BoldIt.otf", opentype
+),
+"",
+700,
+italic,
+"",
+☺
+);

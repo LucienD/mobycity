@@ -1,0 +1,48 @@
+{% extends "mobycity/base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+    <div id="accueil-slider">
+        {% placeholder accueil-slider %}
+    </div>
+    <div id="accueil-encarts" class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="accueil-covoiturage-encart" class="accueil-encart covoiturage">{% placeholder accueil-covoiturage-encart %}</div>
+            </div>
+            <div class="col-md-4">
+                <div id="accueil-cartographie-encart" class="accueil-encart cartographie">{% placeholder accueil-cartographie-encart %}</div>
+            </div>
+            <div class="col-md-4">
+                <div id="accueil-sel-encart" class="accueil-encart sel">{% placeholder accueil-sel-encart %}</div>
+            </div>
+        </div>
+    </div>
+    <section id="accueil-cartographie-bandeau" class="accueil-bandeau container cartographie">
+        <div class="calque">
+            <div class="pictogramme"></div>
+            <div class="contenu">
+                {% placeholder accueil-cartographie-bandeau %}
+            </div>
+            <div class="liens">{% placeholder accueil-cartographie-bandeau-liens %}</div>
+        </div>
+    </section>
+    <section id="accueil-covoiturage-bandeau" class="accueil-bandeau container covoiturage">
+        <div class="calque">
+            <div class="pictogramme"></div>
+            <div class="contenu">
+                {% placeholder accueil-covoiturage-bandeau %}
+            </div>
+            <div class="liens">{% placeholder accueil-covoiturage-bandeau-liens %}</div>
+        </div>
+    </section>
+    <section id="accueil-sel-bandeau" class="accueil-bandeau container sel">
+        <div class="calque">
+            <div class="pictogramme"></div>
+            <div class="contenu">
+                {% placeholder accueil-sel-bandeau %}
+            </div>
+            <div class="liens">{% placeholder accueil-sel-bandeau-liens %}</div>
+        </div>
+    </section>
+{% endblock %}

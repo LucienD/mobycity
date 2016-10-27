@@ -1,0 +1,46 @@
+{% extends "mobycity/base.html" %}
+{% load cms_tags sekizai_tags %}
+{% load static %}
+
+{% block content %}
+    {% addtoblock "js" %}
+        <script type="text/javascript">
+            var categoryList = {{ category_list_json | safe }};
+            var pointOfInterestList = {{ point_of_interest_list_json | safe }};
+
+            var mediaBaseUrl = '{% get_media_prefix %}';
+
+            // Lyon
+            var centerLat = 45.759723;
+            var centerLng = 4.842223;
+            
+            var mapStyles = [{'featureType':'landscape','elementType':'all','stylers':[{'color':'#a8a8a8'},{'gamma':'9.69'}]},{'featureType':'poi','elementType':'all','stylers':[{'hue':'#b5ff00'},{'saturation':33.4},{'lightness':-25.4},{'gamma':1}]},{'featureType':'road.highway','elementType':'all','stylers':[{'hue':'#b5ff00'},{'saturation':-73},{'lightness':40},{'gamma':1}]},{'featureType':'road.arterial','elementType':'all','stylers':[{'hue':'#ffcc00'},{'gamma':1}]},{'featureType':'road.local','elementType':'all','stylers':[{'hue':'#00c0ff'},{'lightness':30},{'gamma':1}]},{'featureType':'water','elementType':'all','stylers':[{'hue':'#008aff'},{'saturation':6},{'lightness':8},{'gamma':1}]},{'featureType':'administrative','elementType':'all','stylers':[{'hue':'#8c8c8c'},{'saturation':0},{'lightness':0},{'gamma':1}]}];
+        </script>
+    {% endaddtoblock %}
+    
+    <div class="cartographie">
+        <div class="slider">
+            <div class="container">
+                <h1>Vivre la ville</h1>
+            </div>
+        </div>
+        
+        <div id="onglets"></div>
+        
+        <div id="corps" class="container">
+            <div class="bloc-titre">
+                <h2>Trouver un point d'intérêt</h2>
+            </div>
+            
+            {% include 'cartography/category_selector.html' %}
+
+            <div class="cartographie-map-container embed-responsive embed-responsive-16by9">
+                {% include 'cartography/map.html' %}
+            </div>
+            
+            <div id="cartographie-soumettre">
+                <a class="btn v-gap-50" href="{% page_url 'contact' %}">Soumettre un lieu</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% load static %}
+
+<style type="text/css">
+    .cartography-map { height : 500px; width : 100%; margin : 0; padding : 0; }
+</style>
+
+<form action="./" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit"/>
+</form>
+
+{% include 'cartography/map.html' %}
+
+<script type="text/javascript" src="{% static 'carpooling/js/offer.js' %}"></script>

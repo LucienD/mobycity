@@ -1,0 +1,21 @@
+{% load static %}
+
+{% include 'cartography/category_selector.html' %}
+{% include 'cartography/map.html' %}
+
+<script type="text/javascript">
+    var categoryList = {{ category_list_json | safe }};
+    var pointOfInterestList = {{ point_of_interest_list_json | safe }};
+    
+    var mediaBaseUrl = '{% get_media_prefix %}';
+            
+    var centerLat = 45.759723;
+    var centerLng = 4.842223;
+
+    var boundBottomLeftLat = 45.707146;
+    var boundBottomLeftLng = 4.768516;
+    var boundTopRightLat = 45.809187;
+    var boundTopRightLng = 4.895545;
+
+    var mapStyles = '';
+</script>

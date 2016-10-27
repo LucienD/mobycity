@@ -1,0 +1,254 @@
+{% extends "mobycity/base.html" %}
+{% load cms_tags sekizai_tags %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+    {% addtoblock "js" %}
+        <script type="text/javascript">
+            var categoryList = {{ category_list_json | safe }};
+            var pointOfInterestList = {{ point_of_interest_list_json | safe }};
+
+            var mediaBaseUrl = '{% get_media_prefix %}';
+
+            // Lyon
+            var centerLat = 45.759723;
+            var centerLng = 4.842223;
+            
+            var mapStyles = [{'featureType':'landscape','elementType':'all','stylers':[{'color':'#a8a8a8'},{'gamma':'9.69'}]},{'featureType':'poi','elementType':'all','stylers':[{'hue':'#b5ff00'},{'saturation':33.4},{'lightness':-25.4},{'gamma':1}]},{'featureType':'road.highway','elementType':'all','stylers':[{'hue':'#b5ff00'},{'saturation':-73},{'lightness':40},{'gamma':1}]},{'featureType':'road.arterial','elementType':'all','stylers':[{'hue':'#ffcc00'},{'gamma':1}]},{'featureType':'road.local','elementType':'all','stylers':[{'hue':'#00c0ff'},{'lightness':30},{'gamma':1}]},{'featureType':'water','elementType':'all','stylers':[{'hue':'#008aff'},{'saturation':6},{'lightness':8},{'gamma':1}]},{'featureType':'administrative','elementType':'all','stylers':[{'hue':'#8c8c8c'},{'saturation':0},{'lightness':0},{'gamma':1}]}];
+            
+            var markerIconA = '{% static "mobycity/images/cartographie-depart.png" %}';
+            var markerIconB = '{% static "mobycity/images/cartographie-arrivee.png" %}';
+            
+            var markerLabelA = '';
+            var markerLabelB = '';
+            
+            var carpoolList = {{ carpool_list_json | safe }};
+        </script>
+    {% endaddtoblock %}
+    <div class="slider">
+        <div class="container">
+            <h1>Mon compte</h1>
+        </div>
+    </div>
+
+    <div id="onglets" class="container">
+        <ul class="list-inline col-sm-12">
+            <li class="col-sm-2 col-sm-offset-4 col-xs-4"><a href="/profile">Mon profil</a></li>
+            <li class="col-sm-2 col-xs-4 active"><a href="/covoiturage/user-list-offers">Mes covoiturages</a></li>
+        </ul>
+    </div>
+    
+    <div id="corps" class="container">
+        <div class="row covoiturage">
+            <div id="sous-onglets" class="col-sm-10 col-sm-offset-1">
+                <ul class="list-inline col-sm-12">
+                    <li class="col-sm-2 col-sm-offset-4 active"><a href="/covoiturage/user-list-offers">Mes annonces</a></li>
+                    <li class="col-sm-2"><a href="/covoiturage/user-list-subscriptions">Mes réservations</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bloc-titre">
+            <h2>Mes annonces</h2>
+        </div>
+        
+        <div id="covoiturage-offres" class="col-md-10 col-md-offset-1">
+            {% if carpool_list %}
+                {% for carpool in carpool_list %}
+                    <div class=" covoiturage-offre row">
+                        <div class="covoiturage-offre-details col-md-6">
+                            <div class="covoiturage-offre-haut row">
+                                <div class="col-xs-6">
+                                    <span class="covoiturage-offre-date-publication">Annonce du {{ carpool.creation_datetime|date:"d.m.Y" }}</span>
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    {% if carpool.cancelled %}
+                                        <span class="etiquette etiquette-covoiturage">Trajet annulé</span>
+                                    {% else %}
+                                        <form action="../user-cancel-carpool/" method="post">
+                                            {% csrf_token %}
+                                            <input id="id_carpool_id" name="carpool_id" type="hidden" value="{{ carpool.id }}"/>
+                                            <input class="btn btn-discret" type="submit" value="Annuler ce trajet"/>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="covoiturage-offre-milieu row">
+                                {% if carpool.frequency == 'OCC' %}
+                                    <div class="col-xs-12">
+                                        <p>
+                                            <span class="covoiturage-offre-type-trajet etiquette">T. ponctuel</span> <span class="covoiturage-offre-date">{{ carpool.occ_departure_datetime|date:"l j F Y" }}</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="covoiturage-offre-depart-arrivee row">
+                                            <div class="covoiturage-offre-depart col-xs-6">Départ à {{ carpool.occ_departure_datetime|date:"G\hi" }}</div> <div class="covoiturage-offre-arrivee col-xs-6">Arrivée vers {{ carpool.occ_arrival_datetime|date:"G\hi" }}</div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="col-xs-12">
+                                        <p>
+                                            <span class="covoiturage-offre-type-trajet etiquette">T. régulier</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="covoiturage-offre-depart-arrivee row">
+                                            <div class="covoiturage-offre-depart col-xs-6">Départ à {{ carpool.reg_departure_time|time:"G\hi" }}</div> <div class="covoiturage-offre-arrivee col-xs-6">Arrivée vers {{ carpool.reg_arrival_time|time:"G\hi" }}</div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                {% if carpool.comment %}
+                                    <div class="col-xs-12">
+                                        <p>
+                                            {{ carpool.comment }}
+                                        </p>
+                                    </div>
+                                {% endif %}
+
+                                {% if carpool.free %}
+                                    <div class="col-xs-12">
+                                        <p class="covoiturage-offre-gratuit">
+                                            Vous proposez ce trajet à titre gracieux
+                                        </p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="covoiturage-offre-bas row">
+                                <div id="covoiturage-offre-inscrits-titre">
+                                    {{ subscription_list|length }} inscrit(s)
+                                </div>
+                            </div>
+                            
+                            <div class="covoiturage-offre-inscrits">
+                                {% if subscription_list %}
+                                    {% for subscription in subscription_list %}
+                                        {% if subscription.carpool == carpool %}
+                                            <div class="covoiturage-offre-inscrit row">
+                                                <div class="col-xs-3">
+                                                    {% if subscription.subscriber.socialaccount_set.all.0.get_avatar_url %}
+                                                        <span class="photo-profil photo-profil-ronde">
+                                                            <img class="img-responsive" src="{{ subscription.subscriber.socialaccount_set.all.0.get_avatar_url }}" />
+                                                        </span>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="covoiturage-offre-pseudo col-xs-3">
+                                                    <span class="pseudo">{{ subscription.subscriber.username }}</span><br />
+                                                    <a href="mailto:{{ subscription.subscriber.email }}">{{ subscription.subscriber.email }}</a>
+                                                </div>
+                                                <div class="covoiturage-offre-actions col-xs-6 text-right">
+                                                    {% if subscription.cancelled %}
+                                                        <span class="etiquette  etiquette-covoiturage">Annulé</span>
+                                                    {% else %}
+                                                        {% if subscription.accepted != None %}
+                                                            {% if subscription.accepted %}
+                                                                <span class="etiquette etiquette-covoiturage">Accepté</span>
+                                                            {% else %}
+                                                                <span class="etiquette etiquette-covoiturage">Refusé</span>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <form action="/covoiturage/user-accept-or-deny-subscription/" method="post">
+                                                                {% csrf_token %}
+                                                                <input id="id_subscription_id" name="subscription_id" type="hidden" value="{{ subscription.id }}"/>
+                                                                <input class="btn" id="id_accept" name="accept" type="submit" value="Accepter" />
+                                                                <input class="btn btn-refuser" id="id_deny" name="deny" type="submit" value="×" />
+                                                            </form>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cartographie-map-container embed-responsive embed-responsive-square">
+                                {% include 'cartography/map.html' %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center">
+                    Vous n'avez pas encore publié d'annonce.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <nav class="pagination-nav text-center">
+        <ul class="pagination">
+            <!--
+            {% if carpool_list.has_previous %}
+                <li><a href="?page={{ carpool_list.previous_page_number }}"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>
+            {% endif %}
+            -->
+
+            {% for i in carpool_list.paginator.page_range %}
+                {% if i >= carpool_list.number|add:"-2" and i <= carpool_list.number|add:"+2" %}
+                    <li class="
+                        {% if i == carpool_list.number %}
+                            active
+                        {% endif %}
+                        ">
+                        <a href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            <!--
+            {% if carpool_list.has_next %}
+                <li><a href="?page={{ carpool_list.next_page_number }}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
+            {% endif %}
+            -->
+        </ul>
+    </nav>
+    
+    {% addtoblock "js" %}
+        <script>
+            try {
+                var markerImageA = new google.maps.MarkerImage(
+                    markerIconA,
+                    new google.maps.Size(17, 17),
+                    new google.maps.Point(0, 0),
+                    new google.maps.Point(8, 8)
+                );
+
+                var markerImageB = new google.maps.MarkerImage(
+                    markerIconB,
+                    new google.maps.Size(17, 17),
+                    new google.maps.Point(0, 0),
+                    new google.maps.Point(8, 8)
+                );
+
+                for (var i = 0; i < cartographyMaps.length; i++) {
+                    var carpoolMarkerA = new google.maps.Marker({
+                        position: {
+                            lat: carpoolList[i].fields.departure_latitude,
+                            lng: carpoolList[i].fields.departure_longitude
+                        },
+                        map: cartographyMaps[i],
+                        label: markerLabelA,
+                        icon: markerImageA
+                    });
+
+                    var carpoolMarkerB = new google.maps.Marker({
+                        position: {
+                            lat: carpoolList[i].fields.arrival_latitude,
+                            lng: carpoolList[i].fields.arrival_longitude
+                        },
+                        map: cartographyMaps[i],
+                        label: markerLabelB,
+                        icon: markerImageB
+                    });
+                }
+            } catch(e) {
+                
+            }
+        </script>
+    {% endaddtoblock %}
+{% endblock %}

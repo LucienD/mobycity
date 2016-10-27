@@ -1,0 +1,14 @@
+{% load cms_tags sekizai_tags %}
+{% load static %}
+
+<div class="cartography-map embed-responsive-item">Chargement de la carte…</div>
+
+{% addtoblock "js" %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDifRwEXeprXchcfiHP6N-N5V8cVkC0gQk"></script>
+{% endaddtoblock %}
+{% addtoblock "js" %}
+    <script type="text/javascript" src="{% static 'cartography/js/GoogleMapsApiInfoBox-1.1.9/infobox.js' %}"></script>
+{% endaddtoblock %}
+{% addtoblock "js" %}
+    <script type="text/javascript" src="{% static 'cartography/js/map.js' %}"></script>
+{% endaddtoblock %}

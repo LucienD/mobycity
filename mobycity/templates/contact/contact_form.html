@@ -1,0 +1,61 @@
+{% extends "mobycity/base.html" %}
+{% load cms_tags sekizai_tags %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+    <div class="slider">
+        <div class="container">
+            <h1>Contact</h1>
+        </div>
+    </div>
+    
+    <div id="corps" class="container">
+        <div class="row">
+            <div class="bloc-titre col-md-6 col-md-offset-3">
+                <h2>Une question ?</h2>
+                <p class="consigne">Comment pouvons-nous vous aider ?</p>
+            </div>
+        </div>
+        <form action="./" method="post">
+            {% bootstrap_form_errors form %}
+
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3
+                     {% if form.last_name.field.required %}
+                     required
+                     {% endif %}"
+                     >{% bootstrap_field form.last_name %}</div>
+                <div class="col-md-3
+                     {% if form.first_name.field.required %}
+                     required
+                     {% endif %}">{% bootstrap_field form.first_name %}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3
+                     {% if form.subject.field.required %}
+                     required
+                     {% endif %}">{% bootstrap_field form.subject %}</div>
+                <div class="col-md-3
+                     {% if form.email.field.required %}
+                     required
+                     {% endif %}">{% bootstrap_field form.email %}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3
+                     {% if form.message.field.required %}
+                     required
+                     {% endif %}">{% bootstrap_field form.message %}</div>
+            </div>
+            <div class="text-center"><input class="btn" type="submit" value="Envoyer"/></div>
+        </form>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <p class="required-consigne">
+                    Les champs marqués d'une astérisque sont obligatoires
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

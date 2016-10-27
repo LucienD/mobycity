@@ -1,0 +1,33 @@
+{% extends "mobycity/base.html" %}
+{% load static %}
+{% load cms_tags %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="slider">
+        <div class="container">
+            <h1>Vos informations personnelles</h1>
+        </div>
+    </div>
+
+    <div id="onglets" class="container">
+        <ul class="list-inline col-sm-12">
+            <li class="col-sm-2 col-sm-offset-4 col-xs-4 active"><a href="/profile">Mon profil</a></li>
+            <li class="col-sm-2 col-xs-4"><a href="/covoiturage/user-list-offers">Mes covoiturages</a></li>
+        </ul>
+    </div>
+
+    <div id="corps" class="container">
+        <div class="bloc-titre">
+            <h2>Votre téléphone</h2>
+        </div>
+        
+        <div class="text-center">
+            <form method="POST" action="./" class="col-md-4 col-md-offset-4">
+                {% csrf_token %}
+                {% bootstrap_field form.phone show_label=False %}
+                <p><input class="btn" type="submit" value="Modifier" /></p>
+            </form>
+        </div>
+    </div>
+{% endblock %}

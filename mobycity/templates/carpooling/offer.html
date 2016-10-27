@@ -1,0 +1,221 @@
+{% extends "mobycity/base.html" %}
+{% load cms_tags sekizai_tags %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+    {% addtoblock "js" %}
+        <script type="text/javascript">
+            var categoryList = {{ category_list_json | safe }};
+            var pointOfInterestList = {{ point_of_interest_list_json | safe }};
+
+            var mediaBaseUrl = '{% get_media_prefix %}';
+            
+            var centerLat = 45.759723;
+            var centerLng = 4.842223;
+            
+            var boundBottomLeftLat = 45.707146;
+            var boundBottomLeftLng = 4.768516;
+            var boundTopRightLat = 45.809187;
+            var boundTopRightLng = 4.895545;
+            
+            var mapStyles = [{'featureType':'landscape','elementType':'all','stylers':[{'color':'#a8a8a8'},{'gamma':'9.69'}]},{'featureType':'poi','elementType':'all','stylers':[{'hue':'#b5ff00'},{'saturation':33.4},{'lightness':-25.4},{'gamma':1}]},{'featureType':'road.highway','elementType':'all','stylers':[{'hue':'#b5ff00'},{'saturation':-73},{'lightness':40},{'gamma':1}]},{'featureType':'road.arterial','elementType':'all','stylers':[{'hue':'#ffcc00'},{'gamma':1}]},{'featureType':'road.local','elementType':'all','stylers':[{'hue':'#00c0ff'},{'lightness':30},{'gamma':1}]},{'featureType':'water','elementType':'all','stylers':[{'hue':'#008aff'},{'saturation':6},{'lightness':8},{'gamma':1}]},{'featureType':'administrative','elementType':'all','stylers':[{'hue':'#8c8c8c'},{'saturation':0},{'lightness':0},{'gamma':1}]}];
+            
+            var markerIconA = '{% static "mobycity/images/cartographie-depart.png" %}';
+            var markerIconB = '{% static "mobycity/images/cartographie-arrivee.png" %}';
+            
+            var markerLabelA = '';
+            var markerLabelB = '';
+        </script>
+    {% endaddtoblock %}
+
+    <div class="covoiturage">
+        <div class="slider">
+            <div class="container">
+                <h1>Covoiturage</h1>
+            </div>
+        </div>
+
+        <div id="onglets" class="container">
+            <ul class="list-inline col-md-12">
+                <li class="col-md-2 col-md-offset-4"><a href="/covoiturage">Rechercher</a></li>
+                <li class="col-md-2 active"><a href="/covoiturage/offer">Proposer</a></li>
+            </ul>
+        </div>
+        
+        <div id="corps" class="container">
+            <div class="bloc-titre">
+                <h2>Proposer un covoiturage</h2>
+                <p class="consigne">Indiquez vos points de départ et d'arrivée en les déplaçant sur la carte</p>
+            </div>
+            <div id="covoiturage-offrir">
+                <form action="./" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% bootstrap_form_errors form %}
+                            {% csrf_token %}
+                            {% bootstrap_field form.departure_latitude %}
+                            {% bootstrap_field form.departure_longitude %}
+                            {% bootstrap_field form.arrival_latitude %}
+                            {% bootstrap_field form.arrival_longitude %}
+
+                            <div class="covoiturage-offrir-row row">
+                                <div id="covoiturage-offrir-type-trajet" class="col-sm-6">
+                                    <ul class="list-inline">
+                                        {% for radio in form.frequency %}
+                                            <li class="list-inline">
+                                                {{ radio.tag }}
+                                                <label for="{{ radio.id_for_label }}">
+                                                    {{ radio.choice_label }}
+                                                </label>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    {% bootstrap_field form.seats_number show_label=False field_class='form-select' %}
+                                </div>
+                            </div>
+                            <div id="occ" class="form-inline">
+                                <div class="covoiturage-offrir-row row">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div id="covoiturage-offrir-depart">
+                                                <span>Départ</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            {% bootstrap_field form.occ_departure_datetime show_label=False field_class='form-datetime' %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div id="covoiturage-offrir-arrivee">
+                                                <span>Arrivée</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            {% bootstrap_field form.occ_arrival_datetime show_label=False field_class='form-datetime' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="reg" class="form-inline">
+                                <div class="covoiturage-offrir-row row">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div id="covoiturage-offrir-depart">
+                                                <span>Départ</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            {% bootstrap_field form.reg_departure_time show_label=False field_class='form-time' %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div id="covoiturage-offrir-arrivee">
+                                                <span>Arrivée</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            {% bootstrap_field form.reg_arrival_time show_label=False field_class='form-time' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="covoiturage-offrir-row row">
+                                <div id="covoiturage-offrir-gratuit" class="col-xs-12">
+                                    {{ form.free }} <label for="id_free">Proposer le trajet gratuitement</label>
+                                </div>
+                            </div>
+                            <div class="covoiturage-offrir-row row">
+                                <div class="col-xs-12">
+                                    {% bootstrap_field form.comment %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cartographie-map-container embed-responsive embed-responsive-square">
+                                {% include 'cartography/map.html' %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12 text-center v-gap-30">
+                            <input type="submit" value="Poster mon annonce" class="btn" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% addtoblock "js" %}
+        <script type="text/javascript" src="{% static 'carpooling/js/offer-search.js' %}"></script>
+    {% endaddtoblock %}
+    
+    {#********** DATE **********#}
+    {% addtoblock "css" %}
+        <link href="{% static 'mobycity/js/bootstrap-datepicker-1.5.0-dist/css/bootstrap-datepicker3.min.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
+    {% endaddtoblock %}
+    {% addtoblock "js" %}
+        <script type="text/javascript" src="{% static 'mobycity/js/bootstrap-datepicker-1.5.0-dist/js/bootstrap-datepicker.min.js' %}"></script>
+    {% endaddtoblock %}
+    {% addtoblock "js" %}
+        <script type="text/javascript" src="{% static 'mobycity/js/bootstrap-datepicker-1.5.0-dist/locales/bootstrap-datepicker.fr.min.js' %}" charset="UTF-8"></script>
+    {% endaddtoblock %}
+    {% addtoblock "js" %}
+        <script>
+            $('#id_occ_departure_datetime_0').datepicker({
+                format: "dd/mm/yyyy",
+                weekStart: 1,
+                todayBtn: "linked",
+                language: "fr",
+                autoclose: true,
+                maxViewMode: 0
+            }).on('show', function(e) {
+                
+            });
+            
+            $('#id_occ_arrival_datetime_0').datepicker({
+                format: "dd/mm/yyyy",
+                weekStart: 1,
+                todayBtn: "linked",
+                language: "fr",
+                autoclose: true,
+                maxViewMode: 0
+            }).on('show', function(e) {
+                
+            });
+        </script>
+    {% endaddtoblock %}
+    
+    {#********** HEURE **********#}
+    {% addtoblock "css" %}
+        <link href="{% static 'mobycity/js/bootstrap-timepicker-0.5.1/css/bootstrap-timepicker.min.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
+    {% endaddtoblock %}
+    {% addtoblock "js" %}
+        <script type="text/javascript" src="{% static 'mobycity/js/bootstrap-timepicker-0.5.1/js/bootstrap-timepicker.min.js' %}"></script>
+    {% endaddtoblock %}
+    {% addtoblock "js" %}
+        <script>
+            $('#id_occ_departure_datetime_1').timepicker({
+                showMeridian: false                
+            });
+            
+            $('#id_reg_departure_time').timepicker({
+                showMeridian: false
+            });
+            
+            $('#id_occ_arrival_datetime_1').timepicker({
+                showMeridian: false                
+            });
+            
+            $('#id_reg_arrival_time').timepicker({
+                showMeridian: false
+            });
+        </script>
+    {% endaddtoblock %}
+{% endblock %}

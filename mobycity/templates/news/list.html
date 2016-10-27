@@ -1,0 +1,87 @@
+{% extends "mobycity/base.html" %}
+{% load cms_tags sekizai_tags %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+    <div class="slider">
+        <div class="container">
+            <h1>Actualités</h1>
+        </div>
+    </div>
+
+    <div id="corps" class="container">
+        {% if news_list %}
+            {% for news in news_list %}
+                <article class="actualite">
+                    <div class="row">
+                        <div class="actualite-titre col-md-6 col-md-offset-3">
+                            <h1>{{ news.title }}</h1>
+                            {% if news.subtitle %}
+                                <h2>{{ news.subtitle }}</h2>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="actualite-contenu col-md-10 col-md-offset-1">
+                            <div class="col-md-6">
+                                <div class="actualite-theme">{{ news.theme }}</div>
+                                <div class="actualite-date">Publié le {{ news.publication_datetime|date:'d/m/Y' }}</div>
+                                {% if news.image %}
+                                    <img class="img-responsive" src="{% get_media_prefix %}{{ news.image }}" />
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <div>{{ news.body|safe }}</div>
+                                {% if news.link1 or news.link2 or news.link3 %}
+                                    <div class="actualite-liens">
+                                        Pour en savoir plus
+                                        <ul class="list-unstyled">
+                                            {% if news.link1 %}
+                                                <li><a href="{{ news.link1 }}">{{ news.link1 }}</a></li>
+                                            {% endif %}
+                                            {% if news.link2 %}
+                                                <li><a href="{{ news.link2 }}">{{ news.link2 }}</a></li>
+                                            {% endif %}
+                                            {% if news.link3 %}
+                                                <li><a href="{{ news.link3 }}">{{ news.link3 }}</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <nav class="pagination-nav text-center">
+        <ul class="pagination">
+            <!--
+            {% if news_list.has_previous %}
+                <li><a href="?page={{ news_list.previous_page_number }}"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>
+            {% endif %}
+            -->
+            
+            {% for i in news_list.paginator.page_range %}
+                {% if i >= news_list.number|add:"-2" and i <= news_list.number|add:"+2" %}
+                    <li class="
+                        {% if i == news_list.number %}
+                            active
+                        {% endif %}
+                        ">
+                        <a href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            <!--
+            {% if news_list.has_next %}
+                <li><a href="?page={{ news_list.next_page_number }}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
+            {% endif %}
+            -->
+        </ul>
+    </nav>
+{% endblock %}

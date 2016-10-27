@@ -1,0 +1,86 @@
+<style type="text/css">
+    .cartography-map {
+        height: 500px;
+        width: 500px;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<h1>My carpool subscriptions</h1>
+
+<div>
+    {% if carpool_list %}
+        {% for carpool in carpool_list %}
+            {% if subscription_list %}
+                {% for subscription in subscription_list %}
+                    {% if subscription.carpool == carpool %}
+                        <p>
+                            {{ carpool.creation_datetime }}<br/>
+                            {{ carpool.frequency }}<br/>
+                            {% if carpool.frequency == 'OCC' %}
+                                {{ carpool.departure_date }}<br/>
+                            {% endif %}
+                            {{ carpool.departure_time }}<br/>
+                            {% if carpool.frequency == 'OCC' %}
+                                {{ carpool.arrival_date }}<br/>
+                            {% endif %}
+                            {{ carpool.arrival_time }}
+                            <div class="cartography-map"></div>
+
+                            {% if subscription.cancelled %}
+                                Cancelled<br/>
+                            {% else %}
+                                {% if subscription.accepted == None or subscription.accepted %}
+                                    <form action="../user-cancel-subscription/" method="post">
+                                        {% csrf_token %}
+                                        <input id="id_subscription_id" name="subscription_id" type="hidden" value="{{ subscription.id }}"/>
+                                        <input type="submit" value="Cancel"/>
+                                    </form>
+                                {% endif %}
+
+                                {% if subscription.accepted != None %}
+                                    {% if subscription.accepted %}
+                                        Accepted<br/>
+                                    {% else %}
+                                        Denied<br/>
+                                    {% endif %}
+                                {% else %}
+                                    Pending<br/>
+                                {% endif %}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% include 'cartography/map.html' %}
+
+        <script>
+            var carpoolList = {{ carpool_list_json | safe }};
+
+            for (var i = 0; i < cartographyMaps.length; i++) {
+                var carpoolMarkerA = new google.maps.Marker({
+                    position: {
+                        lat: carpoolList[i].fields.departure_latitude,
+                        lng: carpoolList[i].fields.departure_longitude
+                    },
+                    map: cartographyMaps[i],
+                    label: "A"
+                });
+
+                var carpoolMarkerB = new google.maps.Marker({
+                    position: {
+                        lat: carpoolList[i].fields.arrival_latitude,
+                        lng: carpoolList[i].fields.arrival_longitude
+                    },
+                    map: cartographyMaps[i],
+                    label: "B"
+                });
+            }
+        </script>
+    {% else %}
+        No carpools.
+    {% endif %}
+</div>

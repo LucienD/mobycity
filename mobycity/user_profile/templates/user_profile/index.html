@@ -1,0 +1,25 @@
+{% load static %}
+
+<style>
+    img {
+        height: 50px;
+        width: 50px;
+    }
+</style>
+
+{% if request.user.userprofile.picture %}
+    <img src="{% get_media_prefix %}{{ request.user.userprofile.picture }}" />
+    <a href="{% url 'user_profile_change_picture' %}">Change profile picture</a><br />
+{% endif %}
+
+{{ request.user.username }}<br />
+
+********** <a href="{% url 'account_change_password' %}">Change password</a><br/>
+
+{{ request.user.email }}
+<a href="{% url 'account_email' %}">Change email</a><br />
+
+{% if request.user.userprofile.phone %}
+    {{ request.user.userprofile.phone }}<br />
+    <a href="{% url 'user_profile_change_phone' %}">Change phone</a><br />
+{% endif %}
